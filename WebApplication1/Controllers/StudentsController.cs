@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project;
 using Project.Models;
+using ProjectCollege.Service;
 
 namespace ProjectCollege.Controllers
 {
@@ -15,10 +16,13 @@ namespace ProjectCollege.Controllers
     public class StudentsController : ControllerBase
     {
         private readonly CollegeDbContext _context;
+        private readonly IStudentService _studentService;
 
-        public StudentsController(CollegeDbContext context)
+
+        public StudentsController(CollegeDbContext context, IStudentService studentService)
         {
             _context = context;
+            _studentService = studentService;
         }
 
         // GET: api/Students
@@ -90,6 +94,7 @@ namespace ProjectCollege.Controllers
           {
               return Problem("Entity set 'CollegeDbContext.Students'  is null.");
           }
+            _studentService.HandleAddStudentRequest(student);
             _context.Students.Add(student);
             await _context.SaveChangesAsync();
 

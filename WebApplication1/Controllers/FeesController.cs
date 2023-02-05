@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project;
 using Project.Models;
+using ProjectCollege.Service;
 
 namespace WebApplication1.Controllers
 {
@@ -15,9 +16,11 @@ namespace WebApplication1.Controllers
     public class FeesController : ControllerBase
     {
         private readonly CollegeDbContext _context;
+        private readonly IFeeService _feeService;
 
-        public FeesController(CollegeDbContext context)
+        public FeesController(CollegeDbContext context, IFeeService feeService)
         {
+            _feeService = feeService;
             _context = context;
         }
 
@@ -90,6 +93,8 @@ namespace WebApplication1.Controllers
           {
               return Problem("Entity set 'CollegeDbContext.Fees'  is null.");
           }
+            _feeService.HandleAddFeeRequest(fee);
+
             _context.Fees.Add(fee);
             await _context.SaveChangesAsync();
 
