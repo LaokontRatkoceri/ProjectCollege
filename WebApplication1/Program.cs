@@ -39,8 +39,6 @@ namespace WebApplication1
 
             app.MapControllers();
 
-                        app.MapCourseEndpoints();
-
             app.Run();
 
 
