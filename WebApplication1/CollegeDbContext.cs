@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Project.Models;
 using WebApplication1.Models;
+using ProjectCollege.Models;
 
 namespace Project
 {
@@ -19,5 +20,6 @@ namespace Project
         public DbSet<FeePayment> feePayments { get; set; }
         public DbSet<staffCourse> staffCourses{ get; set; }
         public DbSet<StudentCourse> studentCourses{ get; set; }
+        public DbSet<ProjectCollege.Models.User> User { get; set; } = default!;
     }
 }

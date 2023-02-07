@@ -9,11 +9,11 @@ using Project;
 
 #nullable disable
 
-namespace WebApplication1.Migrations
+namespace ProjectCollege.Migrations
 {
     [DbContext(typeof(CollegeDbContext))]
-    [Migration("20230205210136_init")]
-    partial class init
+    [Migration("20230207171537_college")]
+    partial class college
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -177,6 +177,39 @@ namespace WebApplication1.Migrations
                     b.ToTable("Students");
                 });
 
+            modelBuilder.Entity("ProjectCollege.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ProfessorId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("StudentId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProfessorId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("User");
+                });
+
             modelBuilder.Entity("WebApplication1.Models.StudentCourse", b =>
                 {
                     b.Property<int>("CourseId")
@@ -253,6 +286,25 @@ namespace WebApplication1.Migrations
                         .IsRequired();
 
                     b.Navigation("course");
+                });
+
+            modelBuilder.Entity("ProjectCollege.Models.User", b =>
+                {
+                    b.HasOne("Project.Models.Professor", "Professor")
+                        .WithMany()
+                        .HasForeignKey("ProfessorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Project.Models.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Professor");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.StudentCourse", b =>

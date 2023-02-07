@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET: api/Courses
+        [EnableCors]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
         {
@@ -94,7 +96,7 @@ namespace WebApplication1.Controllers
           {
               return Problem("Entity set 'CollegeDbContext.Courses'  is null.");
           }
-            _courseService.HandleAddProfessorRequest(course);
+            _courseService.HandleAddCourseRequest(course);
 
             _context.Courses.Add(course);
             await _context.SaveChangesAsync();

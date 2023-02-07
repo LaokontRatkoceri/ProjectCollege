@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace WebApplication1.Migrations
+namespace ProjectCollege.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class college : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -69,6 +69,34 @@ namespace WebApplication1.Migrations
                         column: x => x.ProfessorId,
                         principalTable: "Professors",
                         principalColumn: "ProfessorId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProfessorId = table.Column<int>(type: "int", nullable: false),
+                    StudentId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_User_Professors_ProfessorId",
+                        column: x => x.ProfessorId,
+                        principalTable: "Professors",
+                        principalColumn: "ProfessorId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_User_Students_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Students",
+                        principalColumn: "StudentId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -228,6 +256,16 @@ namespace WebApplication1.Migrations
                 name: "IX_studentCourses_StudentId",
                 table: "studentCourses",
                 column: "StudentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_ProfessorId",
+                table: "User",
+                column: "ProfessorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_StudentId",
+                table: "User",
+                column: "StudentId");
         }
 
         /// <inheritdoc />
@@ -241,6 +279,9 @@ namespace WebApplication1.Migrations
 
             migrationBuilder.DropTable(
                 name: "studentCourses");
+
+            migrationBuilder.DropTable(
+                name: "User");
 
             migrationBuilder.DropTable(
                 name: "Fees");

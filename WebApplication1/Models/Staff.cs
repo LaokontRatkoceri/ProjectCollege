@@ -1,6 +1,8 @@
-﻿namespace Project.Models
+﻿using ProjectCollege.Models;
+
+namespace Project.Models
 {
-    public class Staff
+    public class Staff : Person
     {
         public int StaffId { get; set; }
         public string Faculty { get; set; }

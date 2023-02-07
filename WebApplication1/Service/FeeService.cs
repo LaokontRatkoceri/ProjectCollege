@@ -20,7 +20,7 @@ namespace ProjectCollege.Service
         }
         private async void AddFeeToDB(Fee f)
         {
-            _context.Fees.Add(p);
+            _context.Fees.Add(f);
             await _context.SaveChangesAsync();
         }
         private void AddFeeToEmailService() { }
