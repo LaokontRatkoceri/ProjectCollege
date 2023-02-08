@@ -12,8 +12,8 @@ using Project;
 namespace ProjectCollege.Migrations
 {
     [DbContext(typeof(CollegeDbContext))]
-    [Migration("20230207171537_college")]
-    partial class college
+    [Migration("20230208111016_user")]
+    partial class user
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,59 +51,13 @@ namespace ProjectCollege.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("Project.Models.Fee", b =>
-                {
-                    b.Property<int>("FeeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FeeId"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("SemesterId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FeeId");
-
-                    b.HasIndex("SemesterId");
-
-                    b.ToTable("Fees");
-                });
-
-            modelBuilder.Entity("Project.Models.FeePayment", b =>
-                {
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("FPaymentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FeeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("courseName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasIndex("FeeId");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("FeePayment");
-                });
-
             modelBuilder.Entity("Project.Models.Professor", b =>
                 {
-                    b.Property<int>("ProfessorId")
+                    b.Property<int?>("ProfessorId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProfessorId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("ProfessorId"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -201,6 +155,10 @@ namespace ProjectCollege.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProfessorId");
@@ -245,36 +203,6 @@ namespace ProjectCollege.Migrations
                     b.HasOne("Project.Models.Professor", null)
                         .WithMany("Courses")
                         .HasForeignKey("ProfessorId");
-                });
-
-            modelBuilder.Entity("Project.Models.Fee", b =>
-                {
-                    b.HasOne("Project.Models.Semester", "semester")
-                        .WithMany()
-                        .HasForeignKey("SemesterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("semester");
-                });
-
-            modelBuilder.Entity("Project.Models.FeePayment", b =>
-                {
-                    b.HasOne("Project.Models.Fee", "fee")
-                        .WithMany()
-                        .HasForeignKey("FeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Project.Models.Student", "student")
-                        .WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("fee");
-
-                    b.Navigation("student");
                 });
 
             modelBuilder.Entity("Project.Models.Semester", b =>

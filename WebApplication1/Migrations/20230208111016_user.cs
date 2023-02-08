@@ -1,12 +1,11 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace ProjectCollege.Migrations
 {
     /// <inheritdoc />
-    public partial class college : Migration
+    public partial class user : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -79,6 +78,7 @@ namespace ProjectCollege.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProfessorId = table.Column<int>(type: "int", nullable: false),
                     StudentId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -166,71 +166,10 @@ namespace ProjectCollege.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Fees",
-                columns: table => new
-                {
-                    FeeId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SemesterId = table.Column<int>(type: "int", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Fees", x => x.FeeId);
-                    table.ForeignKey(
-                        name: "FK_Fees_Semesters_SemesterId",
-                        column: x => x.SemesterId,
-                        principalTable: "Semesters",
-                        principalColumn: "SemesterId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "FeePayment",
-                columns: table => new
-                {
-                    FPaymentId = table.Column<int>(type: "int", nullable: false),
-                    FeeId = table.Column<int>(type: "int", nullable: false),
-                    StudentId = table.Column<int>(type: "int", nullable: false),
-                    courseName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.ForeignKey(
-                        name: "FK_FeePayment_Fees_FeeId",
-                        column: x => x.FeeId,
-                        principalTable: "Fees",
-                        principalColumn: "FeeId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_FeePayment_Students_StudentId",
-                        column: x => x.StudentId,
-                        principalTable: "Students",
-                        principalColumn: "StudentId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Courses_ProfessorId",
                 table: "Courses",
                 column: "ProfessorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FeePayment_FeeId",
-                table: "FeePayment",
-                column: "FeeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FeePayment_StudentId",
-                table: "FeePayment",
-                column: "StudentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Fees_SemesterId",
-                table: "Fees",
-                column: "SemesterId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Semesters_CourseId",
@@ -272,7 +211,7 @@ namespace ProjectCollege.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "FeePayment");
+                name: "Semesters");
 
             migrationBuilder.DropTable(
                 name: "staffCourses");
@@ -284,19 +223,13 @@ namespace ProjectCollege.Migrations
                 name: "User");
 
             migrationBuilder.DropTable(
-                name: "Fees");
-
-            migrationBuilder.DropTable(
                 name: "Staff");
 
             migrationBuilder.DropTable(
-                name: "Students");
-
-            migrationBuilder.DropTable(
-                name: "Semesters");
-
-            migrationBuilder.DropTable(
                 name: "Courses");
+
+            migrationBuilder.DropTable(
+                name: "Students");
 
             migrationBuilder.DropTable(
                 name: "Professors");
