@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace example2
+namespace corsapp
 {
     public class Startup
     {
@@ -32,7 +32,7 @@ namespace example2
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "example2", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "corsapp", Version = "v1" });
             });
             services.AddDbContext<CollegeDbContext>(options =>
             {
@@ -77,7 +77,7 @@ namespace example2
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "example2 v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "corsapp v1"));
             }
 
             app.UseHttpsRedirection();
