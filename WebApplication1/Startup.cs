@@ -61,7 +61,7 @@ namespace corsapp
                 options.AddPolicy(name: _corsPolicy,
                         corsBuilder =>
                         {
-                            corsBuilder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                            corsBuilder.WithOrigins("http://localhost:3000/").AllowAnyHeader().AllowAnyMethod();
                         }
                     );
 
