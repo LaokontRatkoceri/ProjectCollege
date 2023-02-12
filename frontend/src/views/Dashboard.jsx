@@ -115,7 +115,7 @@ export const Dashboard = () => {
           <Card>
             <Card.Body>
               <Link to={"/"} className="col-12 btn btn-primary">
-                <h4>Somrething</h4>
+                <h4>Something</h4>
               </Link>
             </Card.Body>
           </Card>

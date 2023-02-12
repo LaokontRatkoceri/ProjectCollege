@@ -16,16 +16,23 @@ const dashboardRoutes = [
     path: "",
     name: "Dashboard",
     icon: "pe-7s-graph",
-    element: <EnrollmentPage />,
+    element: <Dashboard />,
     layout: "/dashboard",
   },
   {
     path: "",
     name: "Dashboard",
     icon: "pe-7s-graph",
-    element: <Dashboard />,
+    element: <EnrollmentPage />,
     layout: "/enroll",
   },
+  // {
+  //   path: "",
+  //   name: "Dashboard",
+  //   icon: "pe-7s-graph",
+  //   element: <PaymentPage />,
+  //   layout: "/payment",
+  // },
 ];
 
 export default dashboardRoutes;
