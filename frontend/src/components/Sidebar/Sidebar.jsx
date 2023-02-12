@@ -20,6 +20,9 @@ export const Sidebar = (props) => {
         </Nav.Link>
       </Nav.Item>
       <Nav.Item>
+        <Nav.Link onClick={() => navigate("/enroll")}>Enroll page</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
         <Nav.Link onClick={() => navigate("/dashboard")}>Dashboard</Nav.Link>
       </Nav.Item>
       <Nav.Item>
